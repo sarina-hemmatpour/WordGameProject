@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.wordsgameproject.SquareFrame xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_rv_item"
+    android:orientation="vertical"
     android:padding="16dp"
     android:layout_margin="4dp">
 
@@ -32,4 +33,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</com.example.wordsgameproject.SquareFrame>
