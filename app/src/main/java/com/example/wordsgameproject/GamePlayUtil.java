@@ -5,6 +5,7 @@ import java.util.List;
 
 public class GamePlayUtil {
 
+
     public static ArrayList<Level> createLevels() {
         ArrayList<Level> levels = new ArrayList<>();
 
@@ -61,17 +62,20 @@ public class GamePlayUtil {
     }
 
 
-    public static List<Character> extractUniqueCharacters(List<String> words) {
-        List<Character> characters = new ArrayList<>();
+    public static ArrayList<Character> extractUniqueCharacters(ArrayList<String> words){
+        ArrayList<Character> uniqueChars=new ArrayList<>();
+
         for (int i = 0; i < words.size(); i++) {
             for (int j = 0; j < words.get(i).length(); j++) {
-                if (!characters.contains(words.get(i).charAt(j))) {
-                    characters.add(words.get(i).charAt(j));
+                if (!uniqueChars.contains(words.get(i).charAt(j)))
+                {
+                    uniqueChars.add(words.get(i).charAt(j));
                 }
             }
         }
-        return characters;
+        return uniqueChars;
     }
+
 
 
 }

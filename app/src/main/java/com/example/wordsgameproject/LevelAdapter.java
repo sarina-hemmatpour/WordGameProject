@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHolder> {
 
     private ArrayList<Level> levels;
+    private OnRecyclerViewItemClickListener<Level> listener;
 
     public ArrayList<Level> getLevels() {
         return levels;
@@ -22,8 +23,9 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
         this.levels = levels;
     }
 
-    public LevelAdapter(ArrayList<Level> levels) {
+    public LevelAdapter(ArrayList<Level> levels , OnRecyclerViewItemClickListener<Level> listener) {
         this.levels = levels;
+        this.listener=listener;
     }
 
     @NonNull
@@ -56,6 +58,12 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
         public void onBindView(int index)
         {
             tvLevel.setText(String.valueOf(levels.get(index).getId()));
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClicked(levels.get(index) , index);
+                }
+            });
         }
     }
 

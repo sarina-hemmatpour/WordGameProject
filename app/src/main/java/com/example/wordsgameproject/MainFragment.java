@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,8 +26,18 @@ public class MainFragment extends Fragment {
 
         //levels recycler view
         RecyclerView rvLevels=(RecyclerView) view;
-        rvLevels.setLayoutManager(new GridLayoutManager(this.getContext() , 3));
-        rvLevels.setAdapter(new LevelAdapter(GamePlayUtil.createLevels()));
+        GridLayoutManager layoutManager=new GridLayoutManager(this.getContext() , 3);
+//        layoutManager.setReverseLayout(true);
+        rvLevels.setLayoutManager(layoutManager);
+        rvLevels.setAdapter(new LevelAdapter(GamePlayUtil.createLevels(),
+                new OnRecyclerViewItemClickListener<Level>() {
+                    @Override
+                    public void onItemClicked(Level item, int position) {
+                        Bundle bundle=new Bundle();
+                        bundle.putParcelable("level" , item);
+                        Navigation.findNavController(getView()).navigate(R.id.action_mainFragment2_to_gameFragment, bundle);
+                    }
+                }));
 
 
     }
