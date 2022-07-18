@@ -71,15 +71,23 @@ public class CharacterAdaptor extends RecyclerView.Adapter<CharacterAdaptor.Char
             tvChar=itemView.findViewById(R.id.tvChar);
         }
         public void binder(int position){
-            if (characterPlaceHolders.get(position).isVisibility())
+            if (!characterPlaceHolders.get(position).isNull())
             {
-                tvChar.setVisibility(View.VISIBLE);
+                if (characterPlaceHolders.get(position).isVisibility())
+                {
+                    tvChar.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    tvChar.setVisibility(View.INVISIBLE);
+                }
+                tvChar.setText(characterPlaceHolders.get(position).getCharacter().toString());
             }
             else
             {
-                tvChar.setVisibility(View.INVISIBLE);
+                itemView.setBackground(null);
             }
-            tvChar.setText(characterPlaceHolders.get(position).getCharacter().toString());
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

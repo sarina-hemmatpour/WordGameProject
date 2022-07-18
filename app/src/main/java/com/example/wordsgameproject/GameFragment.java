@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,8 @@ public class GameFragment extends Fragment {
     private View guessActionContainer;
     private Button btnCancel;
     private Button btnAccept;
-
+    private RecyclerView rvWords;
+    private CharacterAdaptor wordsAdapter;
 
     @Nullable
     @Override
@@ -74,6 +76,33 @@ public class GameFragment extends Fragment {
         }));
 
         actionBtnClicked();
+
+        //recycler view words
+        rvWords=getView().findViewById(R.id.rvWords);
+        int maxLength=level.maxLength();
+        rvWords.setLayoutManager(new GridLayoutManager(getContext() , maxLength , RecyclerView.VERTICAL , false));
+
+        ArrayList<CharacterPlaceHolder> chars=new ArrayList<>();
+        for (int i = 0; i < level.getWords().size(); i++) {
+            for (int j = 0; j < maxLength; j++) {
+                CharacterPlaceHolder c;
+                //has letter
+                if (j<level.getWords().get(i).length())
+                {
+                    c=new CharacterPlaceHolder(level.getWords().get(i).charAt(j) , true);
+                }
+                else
+                {
+                    c=new CharacterPlaceHolder('0' , false);
+                    c.setNull(true);
+                }
+                chars.add(c);
+            }
+        }
+
+        wordsAdapter=new CharacterAdaptor(chars);
+        rvWords.setAdapter(wordsAdapter);
+
 
     }
 

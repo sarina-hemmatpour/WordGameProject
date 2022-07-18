@@ -6,11 +6,12 @@
     android:background="@drawable/background_main">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/rvWords"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layoutDirection="rtl"
+        android:orientation="vertical" />
 
     <FrameLayout
         android:id="@+id/frameGameFragGuessActionContainer"

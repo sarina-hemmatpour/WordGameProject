@@ -3,6 +3,15 @@ package com.example.wordsgameproject;
 public class CharacterPlaceHolder {
     private Character character;
     private boolean Visibility;
+    private boolean isNull=false;
+
+    public boolean isNull() {
+        return isNull;
+    }
+
+    public void setNull(boolean aNull) {
+        isNull = aNull;
+    }
 
     public CharacterPlaceHolder(Character character, boolean visibility) {
         this.character = character;
