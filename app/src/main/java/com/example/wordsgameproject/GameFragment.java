@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,7 +90,8 @@ public class GameFragment extends Fragment {
                 //has letter
                 if (j<level.getWords().get(i).length())
                 {
-                    c=new CharacterPlaceHolder(level.getWords().get(i).charAt(j) , true);
+                    c=new CharacterPlaceHolder(level.getWords().get(i).charAt(j) , false);
+                    c.setTag(level.getWords().get(i));
                 }
                 else
                 {
@@ -123,6 +125,40 @@ public class GameFragment extends Fragment {
                 rvGuessAdaptor.clear();
             }
         });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String guess=rvGuessAdaptor.returnWord();
+
+                for (int i = 0; i < level.getWords().size(); i++) {
+                    if (guess.equals(level.getWords().get(i)))
+                    {
+                        Toast.makeText(getContext(),  "کلمه درست حدس زده شد: " + guess.trim(), Toast.LENGTH_SHORT).show();
+                        btnCancel.performClick();
+                        wordsAdapter.makeWordVisible(guess.trim());
+                        return;
+                    }
+                }
+
+                btnCancel.performClick();
+                Toast.makeText(getContext(), "کلمه اشتباه است.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    public void correctGuess(String word)
+    {
+        for (int i = 0; i < wordsAdapter.getItemCount(); i++) {
+            if (word.equals(wordsAdapter.getCharacterPlaceHolders().get(i).getTag()))
+            {
+                wordsAdapter.getCharacterPlaceHolders().get(i).setVisibility(true);
+                wordsAdapter.notifyItemChanged(i);
+            }
+        }
+//        wordsAdapter.notifyDataSetChanged();
+
     }
 
 }

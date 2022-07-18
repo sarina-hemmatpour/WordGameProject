@@ -70,6 +70,7 @@ public class CharacterAdaptor extends RecyclerView.Adapter<CharacterAdaptor.Char
             super(itemView);
             tvChar=itemView.findViewById(R.id.tvChar);
         }
+
         public void binder(int position){
             if (!characterPlaceHolders.get(position).isNull())
             {
@@ -112,6 +113,26 @@ public class CharacterAdaptor extends RecyclerView.Adapter<CharacterAdaptor.Char
     public void clear(){
         characterPlaceHolders.clear();
         notifyDataSetChanged();
+    }
+
+    public String returnWord()
+    {
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int i = 0; i < characterPlaceHolders.size(); i++) {
+            stringBuilder.append(characterPlaceHolders.get(i).getCharacter().toString());
+        }
+        return stringBuilder.toString();
+    }
+
+    public void makeWordVisible(String tag)
+    {
+        for (int i = 0; i < characterPlaceHolders.size(); i++) {
+            if (characterPlaceHolders.get(i).getTag().equals(tag))
+            {
+                characterPlaceHolders.get(i).setVisibility(true);
+                notifyItemChanged(i);
+            }
+        }
     }
 
 }
