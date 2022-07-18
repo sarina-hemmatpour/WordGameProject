@@ -65,4 +65,16 @@ public class Level implements Parcelable {
         parcel.writeInt(Id);
         parcel.writeStringList(words);
     }
+
+    public int maxLength()
+    {
+        int max=words.get(0).length();
+        for (int i = 1; i < words.size(); i++) {
+            if (words.get(i).length()>max)
+            {
+                max=words.get(i).length();
+            }
+        }
+        return max;
+    }
 }

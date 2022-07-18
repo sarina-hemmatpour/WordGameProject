@@ -16,8 +16,32 @@ public class CharacterAdaptor extends RecyclerView.Adapter<CharacterAdaptor.Char
     private ArrayList<CharacterPlaceHolder> characterPlaceHolders;
     private OnRecyclerViewItemClickListener<CharacterPlaceHolder> listener;
 
+    public ArrayList<CharacterPlaceHolder> getCharacterPlaceHolders() {
+        return characterPlaceHolders;
+    }
+
+    public void setCharacterPlaceHolders(ArrayList<CharacterPlaceHolder> characterPlaceHolders) {
+        this.characterPlaceHolders = characterPlaceHolders;
+    }
+
+    public OnRecyclerViewItemClickListener<CharacterPlaceHolder> getListener() {
+        return listener;
+    }
+
+    public void setListener(OnRecyclerViewItemClickListener<CharacterPlaceHolder> listener) {
+        this.listener = listener;
+    }
+
+    public CharacterAdaptor() {
+        characterPlaceHolders=new ArrayList<>();
+    }
+
+    public CharacterAdaptor(ArrayList<CharacterPlaceHolder> characterPlaceHolders) {
+        this.characterPlaceHolders = characterPlaceHolders;
+    }
+
     public CharacterAdaptor(ArrayList<CharacterPlaceHolder> characterPlaceHolders ,
-                           OnRecyclerViewItemClickListener<CharacterPlaceHolder> listener ) {
+                            OnRecyclerViewItemClickListener<CharacterPlaceHolder> listener ) {
         this.characterPlaceHolders = characterPlaceHolders;
         this.listener=listener;
     }
@@ -56,8 +80,30 @@ public class CharacterAdaptor extends RecyclerView.Adapter<CharacterAdaptor.Char
                 tvChar.setVisibility(View.INVISIBLE);
             }
             tvChar.setText(characterPlaceHolders.get(position).getCharacter().toString());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener!=null)
+                    {
+                        listener.onItemClicked(characterPlaceHolders.get(position) , position);
+                    }
+                }
+            });
+
         }
     }
 
+
+    public void addCharacter(CharacterPlaceHolder item)
+    {
+        getCharacterPlaceHolders().add(item);
+        notifyItemInserted(characterPlaceHolders.size()-1);
+    }
+
+    public void clear(){
+        characterPlaceHolders.clear();
+        notifyDataSetChanged();
+    }
 
 }
